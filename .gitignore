@@ -1,0 +1,24 @@
+# Ignore all files by default, but scan all directories.
+*
+!*/
+
+!.gitattributes
+!.gitignore
+!README.md
+
+.idea/**/*
+
+!/Config/**/*
+!/Content/**/*
+!/Plugins/*/Resources/**
+!/Plugins/*/Source/**/*.h
+!/Plugins/*/Source/**/*.cpp
+!/Plugins/*/Source/**/*.cs
+!/Plugins/*/*.uplugin
+!/Source/**/*.h
+!/Source/**/*.cpp
+!/Source/**/*.cs
+!/*.uproject
+
+# Includes
+
