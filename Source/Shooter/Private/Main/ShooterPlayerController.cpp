@@ -6,6 +6,7 @@
 // #include "Net/UnrealNetwork.h"
 
 #include "ShooterGameMode.h"
+#include "ShooterGameState.h"
 
 //------------------------------------------------------------------------------
 
@@ -25,10 +26,20 @@ AShooterPlayerController::AShooterPlayerController()
 // }
 
 
-// void AShooterPlayerController::PostInitializeComponents()
-// {
-// 	Super::PostInitializeComponents();
-// }
+void AShooterPlayerController::PostInitializeComponents()
+{
+	Super::PostInitializeComponents();
+
+	if (IsLocalPlayerController())
+	{
+		AShooterGameState* GameState = GetWorld()->GetGameState<AShooterGameState>();
+		if (GameState != nullptr)
+		{
+			OnGameStateInitialize(GameState);
+		}
+	}
+}
+
 
 void AShooterPlayerController::SetPawn(APawn* InPawn)
 {

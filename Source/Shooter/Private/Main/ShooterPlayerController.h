@@ -16,7 +16,7 @@ public:
 
 	AShooterPlayerController();
 
-	// virtual void PostInitializeComponents() override;
+	virtual void PostInitializeComponents() override;
 	virtual void SetPawn(APawn* InPawn) override;
 
 protected:

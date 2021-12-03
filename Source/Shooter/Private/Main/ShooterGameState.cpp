@@ -32,7 +32,7 @@ void AShooterGameState::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
 
-	AShooterPlayerController* PlayerController = GetWorld()->GetFirstPlayerController<AShooterPlayerController>();
+	AShooterPlayerController* PlayerController = Cast<AShooterPlayerController>(GEngine->GetFirstLocalPlayerController(GetWorld()));
 	if (PlayerController != nullptr)
 	{
 		PlayerController->OnGameStateInitialize(this);

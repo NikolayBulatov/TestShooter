@@ -23,7 +23,7 @@ void UHUDWidget::NativeConstruct()
 {
 	Super::NativeConstruct();
 
-	APlayerController* PlayerController = GetWorld()->GetFirstPlayerController();
+	APlayerController* PlayerController = GetOwningPlayer();
 	if (PlayerController != nullptr)
 	{
 		AShooterPlayerState* PlayerState = PlayerController->GetPlayerState<AShooterPlayerState>();
@@ -58,7 +58,7 @@ void UHUDWidget::SetPlayerState(AShooterPlayerState* PlayerState)
 		return;
 	}
 
-	PlayerState->OnChanged.AddDynamic(this, &UHUDWidget::OnLocalPlayerChange);
+	PlayerState->OnChanged.AddUniqueDynamic(this, &UHUDWidget::OnLocalPlayerChange);
 	OnLocalPlayerChange(PlayerState);
 
 	AShooterPlayerState* ShooterPlayerState = Cast<AShooterPlayerState>(PlayerState);
@@ -77,11 +77,11 @@ void UHUDWidget::SetGameState(AShooterGameState* GameState)
 		return;
 	}
 
-	GameState->OnChanged.AddDynamic(this, &UHUDWidget::NativeGameStateChanged);
+	GameState->OnChanged.AddUniqueDynamic(this, &UHUDWidget::NativeGameStateChanged);
 	OnGameStateChanged(GameState);
 
-	GameState->OnPlayerSatateAdd.AddDynamic(this, &UHUDWidget::NativePlayerListAdd);
-	GameState->OnPlayerSatateRemove.AddDynamic(this, &UHUDWidget::NativePlayerListRemove);
+	GameState->OnPlayerSatateAdd.AddUniqueDynamic(this, &UHUDWidget::NativePlayerListAdd);
+	GameState->OnPlayerSatateRemove.AddUniqueDynamic(this, &UHUDWidget::NativePlayerListRemove);
 
 	for (APlayerState* PlayerState : GameState->PlayerArray)
 	{
@@ -105,7 +105,7 @@ void UHUDWidget::NativePlayerListAdd(APlayerState* PlayerState)
 	AShooterPlayerState* ShooterPlayerState = Cast<AShooterPlayerState>(PlayerState);
 	if (ShooterPlayerState != nullptr)
 	{
-		ShooterPlayerState->OnChanged.AddDynamic(this, &UHUDWidget::NativePlayerListChange);
+		ShooterPlayerState->OnChanged.AddUniqueDynamic(this, &UHUDWidget::NativePlayerListChange);
 		NativePlayerListChange(ShooterPlayerState);
 
 		OnPlayerListAdd(ShooterPlayerState);
