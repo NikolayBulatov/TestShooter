@@ -25,6 +25,7 @@ public:
 
 protected:
 
+	virtual void CopyProperties(APlayerState* NewPlayerState) override;
 	virtual void NativeChanged();
 
 	//------------------------------------------------------------------------------

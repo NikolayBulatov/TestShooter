@@ -39,6 +39,20 @@ void AShooterPlayerState::ClientInitialize(AController* C)
 }
 
 
+void AShooterPlayerState::CopyProperties(APlayerState* NewPlayerState)
+{
+	Super::CopyProperties(NewPlayerState);
+
+	auto NewPS = Cast<AShooterPlayerState>(NewPlayerState);
+	if (NewPS)
+	{
+		NewPS->ScoreHits = ScoreHits;
+		NewPS->ScoreDeaths = ScoreDeaths;
+		NewPS->ScoreKills = ScoreKills;
+	}
+}
+
+
 void AShooterPlayerState::NativeChanged()
 {
 	OnChanged.Broadcast(this);
